@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <title>Your Purchase is Complete – Download Your Source Code</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        button {
+            width: 220px;
+            height: 50px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            background: #DB3426;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 20px;
+        }
+        .container {
+            padding: 50px;
+            /*text-align: center;*/
+        }
+        .logo {
+            margin-bottom: 40px;
+        }
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img alt="logo" src="assets/logo.svg" width="100" class="logo">
+    <p class="bold">Dear, {{ .Name }}</p>
+    <p>Thank you for your purchase on Storyrow! Your source code is ready for download.</p>
+    <p>
+        <strong>Order Details:</strong>
+    </p>
+    <ul style="text-align: left">
+        <li><strong>Product Name</strong>: {{ .ProductName }}</li>
+        <li><strong>Order Id</strong>: {{ .OrderId }}</li>
+        <li><strong>Purchase Date</strong>: {{ .Date }}</li>
+    </ul>
+    <p>If you have any questions or need support, feel free to reach out to us at storyrowio@gmail.com.</p>
+
+    <a href="{{ .Link }}">
+        <button>Download</button>
+    </a>
+
+    <p>or</p>
+
+    <a href="{{ .Link }}">
+        {{ .Link }}
+    </a>
+
+    <p>Thank you</p>
+
+    <p>Best regards, Storyrow Team</p>
+</div>
+</body>
+</html>
