@@ -1,14 +1,15 @@
 import {createBrowserRouter} from "react-router";
-import BaseLayout from "../layouts/BaseLayout.jsx";
 import LoginPage from "../pages/auth/LoginPage.jsx";
 import RegisterPage from "../pages/auth/RegisterPage.jsx";
 import AppLayout from "layouts/app/AppLayout.jsx";
 import DashboardPage from "pages/app/DashboardPage.jsx";
 import AuthCallbackPage from "pages/auth/AuthCallbackPage.jsx";
+import AuthLayout from "layouts/auth/AuthLayout.jsx";
 
 const routes = createBrowserRouter([
     {
-        component: BaseLayout,
+        path: '/',
+        Component: AuthLayout,
         children: [
             { index: true, Component: LoginPage },
             { path: '/register', Component: RegisterPage },

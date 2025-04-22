@@ -6,7 +6,7 @@ export default function AuthContentCard({ children }) {
 
     const contentClassNames = classNames({
         '': true,
-        'w-[50%]': desktop,
+        'w-[60%] h-[80%] flex items-center': desktop,
         'w-[70%]': tablet,
         'w-[85%]': mobile
     });
@@ -22,7 +22,7 @@ export default function AuthContentCard({ children }) {
     });
 
     return (
-        <div className="h-full grid grid-cols-2">
+        <div className="h-full grid grid-cols-2 relative">
             <div className={leftClassNames}>
                 <div className={contentClassNames}>
                     {children}
@@ -32,8 +32,8 @@ export default function AuthContentCard({ children }) {
                 <img
                     src={BackgroundContent}
                     alt="background"
+                    className="h-full w-full object-cover top-0 right-0 absolute"
                     style={{
-                        objectFit: 'cover',
                         borderTopRightRadius: 30,
                         borderBottomRightRadius: 30,
                     }}/>

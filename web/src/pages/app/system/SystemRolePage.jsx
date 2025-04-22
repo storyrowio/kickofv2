@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import SystemService from "services/SystemService.js";
+import SystemService from "services/SystemService.jsx";
 
 export default function SystemRolePage() {
     const { data: resData, isLoading: loading } = useSWR(
