@@ -8,7 +8,6 @@ import (
 	"kickof/database"
 	"kickof/lib"
 	"kickof/models"
-	"log"
 	"net/http"
 	"time"
 )
@@ -71,6 +70,9 @@ func GetUser(filter bson.M, opts *options.FindOneOptions) *models.User {
 		return nil
 	}
 
+	role := GetRole(bson.M{"id": user.RoleId}, nil, false)
+	user.Role = *role
+
 	return &user
 }
 
@@ -113,11 +115,11 @@ func GetCurrentUser(r *http.Request) *models.User {
 
 	user := GetUser(bson.M{"email": email}, options.FindOne().SetProjection(bson.D{{"password", 0}}))
 
-	role := GetRole(bson.M{"id": user.RoleId}, nil)
-	if role != nil {
+	role := GetRole(bson.M{"id": user.RoleId}, nil, true)
+	if role == nil {
 		return nil
 	}
-	log.Println(role.Permissions)
+
 	user.Permissions = role.Permissions
 
 	return user

@@ -2,12 +2,12 @@ import classNames from "classnames";
 import {useDispatch, useSelector} from "store/index.jsx";
 import {ThemeActions} from "store/slices/ThemeSlice.jsx";
 import {ArrowDown01Icon, Image02Icon, MoreHorizontalCircle01Icon} from "hugeicons-react";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {AppMenuIcons} from "constants/menus.jsx";
 
 export default function AppSidebarItem(props) {
     const { item, isMiniSidebar, miniSidebarHover } = props;
-
+    const navigate = useNavigate();
     const { pathname } = useLocation();
     const dispatch = useDispatch();
     const { activeSidebarGroupMenu } = useSelector(state => state.theme);
@@ -78,7 +78,7 @@ export default function AppSidebarItem(props) {
     }
 
     return (
-        <li>
+        <li onClick={() => navigate(`/app${item.path}`)}>
             <div className={itemClassNames}>
                 <ItemContent/>
             </div>

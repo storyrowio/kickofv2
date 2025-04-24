@@ -4,6 +4,7 @@ import {EyeIcon, ViewIcon, ViewOffIcon} from "hugeicons-react";
 
 export default function Input(props) {
     const {
+        label,
         icon,
         className,
         action,
@@ -28,6 +29,9 @@ export default function Input(props) {
 
     return (
         <div>
+            {label && (
+                <span className="text-xs text-neutral-500">{label}</span>
+            )}
             <label className={inputClassName}>
                 {icon}
                 <input

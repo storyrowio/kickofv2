@@ -5,20 +5,20 @@ import (
 )
 
 type User struct {
-	Id            string    `json:"id" bson:"id"`
-	RoleId        string    `json:"roleId" bson:"roleId"`
-	Name          string    `json:"name" bson:"name"`
-	Email         string    `json:"email" bson:"email"`
-	Password      string    `json:"password" bson:"password"`
-	Image         string    `json:"image" bson:"image"`
-	Active        bool      `json:"active" bson:"active" default:"false"`
-	LastActive    time.Time `json:"lastActive" bson:"lastActive"`
-	IsAdminSystem bool      `json:"isAdminSystem" bson:"isAdminSystem" default:"false"`
-	CurrentSocial string    `json:"currentSocial" bson:"currentSocial"` // userSocialId
-	UserInfo      UserInfo  `json:"info" bson:"info"`
-	Status        bool      `json:"status" default:"true"` // Enable or disable by admin
-	Role          Role      `json:"role" bson:"-"`
-	Permissions   []string  `json:"permissions" bson:"-"`
+	Id            string       `json:"id" bson:"id"`
+	RoleId        string       `json:"roleId" bson:"roleId"`
+	Name          string       `json:"name" bson:"name"`
+	Email         string       `json:"email" bson:"email"`
+	Password      string       `json:"password" bson:"password"`
+	Image         string       `json:"image" bson:"image"`
+	Active        bool         `json:"active" bson:"active" default:"false"`
+	LastActive    time.Time    `json:"lastActive" bson:"lastActive"`
+	IsAdminSystem bool         `json:"isAdminSystem" bson:"isAdminSystem" default:"false"`
+	CurrentSocial string       `json:"currentSocial" bson:"currentSocial"` // userSocialId
+	UserInfo      UserInfo     `json:"info" bson:"info"`
+	Status        bool         `json:"status" default:"true"` // Enable or disable by admin
+	Role          Role         `json:"role" bson:"-"`
+	Permissions   []Permission `json:"permissions" bson:"-"`
 	BasicDate     `bson:",inline"`
 }
 

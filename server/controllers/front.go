@@ -5,7 +5,6 @@ import (
 	"kickof/lib"
 	"kickof/models"
 	"kickof/services"
-	"log"
 	"net/http"
 )
 
@@ -15,8 +14,13 @@ func GetFrontSidebarMenus(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, models.Response{Data: "Unauthorized"})
 		return
 	}
-	log.Println(profile.Permissions)
-	menus := lib.GenerateSidebarMenus(profile.Permissions, nil)
+
+	userPermissions := make([]string, 0)
+	for _, permission := range profile.Permissions {
+		userPermissions = append(userPermissions, permission.Id)
+	}
+
+	menus := lib.GenerateSidebarMenus(userPermissions, nil)
 
 	c.JSON(http.StatusOK, models.Response{Data: menus})
 }

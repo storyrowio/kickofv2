@@ -5,8 +5,15 @@ const GetSystemRoles = () => {
         .then(res => res.data?.data);
 };
 
+const GetSystemPermissions = () => {
+    return Api.Instance.get('/permission')
+        .then(res => res.data?.data);
+};
+
+
 const SystemService = {
-    GetSystemRoles
+    GetSystemRoles,
+    GetSystemPermissions
 };
 
 export default SystemService;

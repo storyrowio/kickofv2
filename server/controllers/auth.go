@@ -38,7 +38,7 @@ func SignUp(c *gin.Context) {
 		}
 
 		roleId := ""
-		role := services.GetRole(bson.M{"code": models.AdminRole}, nil)
+		role := services.GetRole(bson.M{"code": models.AdminRole}, nil, false)
 		if role != nil {
 			roleId = role.Id
 		}
@@ -112,7 +112,7 @@ func SignIn(c *gin.Context) {
 	if user == nil {
 		if request.IsSocial {
 			roleId := ""
-			role := services.GetRole(bson.M{"code": models.AdminRole}, nil)
+			role := services.GetRole(bson.M{"code": models.AdminRole}, nil, false)
 			if role != nil {
 				roleId = role.Id
 			}

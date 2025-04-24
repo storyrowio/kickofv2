@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func GetRoles(c *gin.Context) {
+func GetSettings(c *gin.Context) {
 	var query models.Query
 
 	err := c.ShouldBindQuery(&query)
@@ -22,14 +22,14 @@ func GetRoles(c *gin.Context) {
 	filters := query.GetQueryFind()
 	opts := query.GetOptions()
 
-	results := services.GetRolesWithPagination(filters, opts, query)
+	results := services.GetSettingsWithPagination(filters, opts, query)
 
 	c.JSON(http.StatusOK, models.Response{Data: results})
 	return
 }
 
-func CreateRole(c *gin.Context) {
-	var request models.Role
+func CreateSetting(c *gin.Context) {
+	var request models.Setting
 
 	err := c.ShouldBindJSON(&request)
 	if err != nil {
@@ -41,7 +41,7 @@ func CreateRole(c *gin.Context) {
 	request.CreatedAt = time.Now()
 	request.UpdatedAt = time.Now()
 
-	_, err = services.CreateRole(request)
+	_, err = services.CreateSetting(request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.Response{Data: err.Error()})
 		return
@@ -51,10 +51,10 @@ func CreateRole(c *gin.Context) {
 	return
 }
 
-func GetRoleById(c *gin.Context) {
+func GetSettingById(c *gin.Context) {
 	id := c.Param("id")
 
-	result := services.GetRole(bson.M{"id": id}, nil, false)
+	result := services.GetSetting(bson.M{"id": id}, nil)
 	if result == nil {
 		c.JSON(http.StatusNotFound, models.Result{Data: "Data Not Found"})
 		return
@@ -63,16 +63,16 @@ func GetRoleById(c *gin.Context) {
 	c.JSON(http.StatusOK, models.Response{Data: result})
 }
 
-func UpdateRole(c *gin.Context) {
+func UpdateSetting(c *gin.Context) {
 	id := c.Param("id")
 
-	Role := services.GetRole(bson.M{"id": id}, nil, false)
-	if Role == nil {
+	Setting := services.GetSetting(bson.M{"id": id}, nil)
+	if Setting == nil {
 		c.JSON(http.StatusNotFound, models.Result{Data: "Data Not Found"})
 		return
 	}
 
-	var request models.Role
+	var request models.Setting
 
 	err := c.ShouldBindJSON(&request)
 	if err != nil {
@@ -80,7 +80,7 @@ func UpdateRole(c *gin.Context) {
 		return
 	}
 
-	_, err = services.UpdateRole(id, request)
+	_, err = services.UpdateSetting(id, request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.Response{Data: err.Error()})
 		return
@@ -89,42 +89,14 @@ func UpdateRole(c *gin.Context) {
 	c.JSON(200, models.Response{Data: request})
 }
 
-func DeleteRole(c *gin.Context) {
+func DeleteSetting(c *gin.Context) {
 	id := c.Param("id")
 
-	_, err := services.DeleteRole(id)
+	_, err := services.DeleteSetting([]string{id})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.Response{Data: "Failed Delete Data"})
 		return
 	}
 
 	c.JSON(http.StatusOK, models.Response{Data: "Success"})
-}
-
-func AttachPermissionsToRole(c *gin.Context) {
-	request := struct {
-		RoleId      string   `json:"roleId"`
-		Permissions []string `json:"permissions"`
-	}{}
-	err := c.ShouldBindJSON(&request)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, models.Response{Data: err.Error()})
-		return
-	}
-
-	role := services.GetRole(bson.M{"id": request.RoleId}, nil, false)
-	if role == nil {
-		c.JSON(http.StatusNotFound, models.Response{Data: err.Error()})
-		return
-	}
-
-	role.UpdatedAt = time.Now()
-	role.PermissionIds = append(role.PermissionIds, request.Permissions...)
-	_, err = services.UpdateRole(role.Id, role)
-	if err != nil {
-		c.JSON(http.StatusNotFound, models.Response{Data: err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, models.Response{Data: role})
 }

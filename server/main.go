@@ -70,12 +70,21 @@ func main() {
 			protected.GET("/profile", controllers.GetProfile)
 			protected.PATCH("/profile", controllers.UpdateProfile)
 
+			protected.GET("/permission", controllers.GetPermissions)
+			protected.POST("/permission", controllers.CreatePermission)
+
 			protected.GET("/role", controllers.GetRoles)
 			protected.POST("/role", controllers.CreateRole)
 			protected.GET("/role/:id", controllers.GetRoleById)
 			protected.PATCH("/role/:id", controllers.UpdateRole)
 			protected.DELETE("/role/:id", controllers.DeleteRole)
 			protected.POST("/role/attach-permission", controllers.AttachPermissionsToRole)
+
+			protected.GET("/setting", controllers.GetSettings)
+			protected.POST("/setting", controllers.CreateSetting)
+			protected.GET("/setting/:id", controllers.GetSettingById)
+			protected.PATCH("/setting/:id", controllers.UpdateSetting)
+			protected.DELETE("/setting/:id", controllers.DeleteSetting)
 
 			protected.GET("/user", controllers.GetUsers)
 			protected.POST("/user", controllers.CreateUser)

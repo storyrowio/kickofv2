@@ -15,16 +15,16 @@ export default function LoginForm() {
         onSubmit: values => handleSubmit(values)
     })
 
-    const handleSubmit = (values) => {
+    const handleSubmit = async (values) => {
         return AuthService.Login(values)
             .then(() => {
                 navigate('/app')
             });
     };
 
-    const handleSignIn = async () => {
+    const handleSocialSignIn = async (provider) => {
         await signIn.authenticateWithRedirect({
-            strategy: `oauth_google`,
+            strategy: `oauth_${provider}`,
             redirectUrl: '/auth-callback',
             redirectUrlComplete: '/app'
         })
@@ -66,7 +66,7 @@ export default function LoginForm() {
 
                 <div className="divider my-8 text-[10px] text-neutral-500">Or</div>
 
-                <button className="btn btn-block bg-neutral-100 text-neutral-600 font-medium">
+                <button className="btn btn-block bg-neutral-100 text-neutral-600 font-medium" onChange={() => handleSocialSignIn('google')}>
                     <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M18.6712 8.368H18V8.33342H10.5V11.6667H15.2096C14.5225 13.6072 12.6762 15.0001 10.5 15.0001C7.73874 15.0001 5.49999 12.7613 5.49999 10.0001C5.49999 7.23883 7.73874 5.00008 10.5 5.00008C11.7746 5.00008 12.9342 5.48091 13.8171 6.26633L16.1742 3.90925C14.6858 2.52216 12.695 1.66675 10.5 1.66675C5.89791 1.66675 2.16666 5.398 2.16666 10.0001C2.16666 14.6022 5.89791 18.3334 10.5 18.3334C15.1021 18.3334 18.8333 14.6022 18.8333 10.0001C18.8333 9.44133 18.7758 8.89592 18.6712 8.368Z"

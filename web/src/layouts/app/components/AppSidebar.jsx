@@ -18,7 +18,7 @@ export default function AppSidebar(props) {
     const sidebarClassnames = classNames({
         'w-56 h-screen fixed z-10 bg-white border-r border-neutral-200 transition-all duration-300 ease-in-out': true,
         '!w-18': isMiniSidebar && !miniSidebarHover,
-        '!w-0': !desktop && !open
+        '!w-0': !desktop && !sidebarOpen
     });
 
     const menuClassNames = classNames({
@@ -34,11 +34,11 @@ export default function AppSidebar(props) {
             setMiniSidebarHover(false);
         }
     }
-    console.log(sidebarMenus)
+
     return (
         <aside className={sidebarClassnames}>
             <div className="relative">
-                {(desktop || (!desktop && open)) && (
+                {(desktop || (!desktop && sidebarOpen)) && (
                     <IconButton
                         className="absolute -right-[16px] top-[16px] z-8"
                         onClick={onToggleSidebar}>

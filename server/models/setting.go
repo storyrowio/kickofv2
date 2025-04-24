@@ -19,4 +19,5 @@ type Setting struct {
 	Type        string                 `json:"type"` // general, payment, etc
 	Status      bool                   `json:"status"`
 	IsDefault   bool                   `json:"isDefault" bson:"isDefault"`
+	BasicDate   `bson:",inline"`
 }

@@ -13,13 +13,18 @@ import (
 
 const RoleCollection = "roles"
 
-func GetRoles(filters bson.M, opt *options.FindOptions) []models.Setting {
-	results := make([]models.Setting, 0)
+func GetRoles(filters bson.M, opt *options.FindOptions, includeDetail bool) []models.Role {
+	results := make([]models.Role, 0)
 
 	cursor := database.Find(RoleCollection, filters, opt)
 	for cursor.Next(context.Background()) {
-		var data models.Setting
+		var data models.Role
 		if cursor.Decode(&data) == nil {
+			if includeDetail {
+				permissions := GetPermissions(bson.M{"id": bson.M{"$in": data.PermissionIds}}, nil)
+				data.Permissions = permissions
+			}
+
 			results = append(results, data)
 		}
 	}
@@ -28,7 +33,7 @@ func GetRoles(filters bson.M, opt *options.FindOptions) []models.Setting {
 }
 
 func GetRolesWithPagination(filters bson.M, opt *options.FindOptions, query models.Query) models.Result {
-	results := GetRoles(filters, opt)
+	results := GetRoles(filters, opt, true)
 
 	count := database.Count(RoleCollection, filters)
 
@@ -52,7 +57,7 @@ func CreateRole(params models.Role) (bool, error) {
 	return true, nil
 }
 
-func GetRole(filter bson.M, opts *options.FindOneOptions) *models.Role {
+func GetRole(filter bson.M, opts *options.FindOneOptions, includeDetail bool) *models.Role {
 	var data models.Role
 	err := database.FindOne(RoleCollection, filter, opts).Decode(&data)
 	if err != nil {
@@ -61,6 +66,12 @@ func GetRole(filter bson.M, opts *options.FindOneOptions) *models.Role {
 		}
 		return nil
 	}
+
+	if includeDetail {
+		permissions := GetPermissions(bson.M{"id": bson.M{"$in": data.PermissionIds}}, nil)
+		data.Permissions = permissions
+	}
+
 	return &data
 }
 

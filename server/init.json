@@ -2,6 +2,7 @@
   "users": [
     {
       "id": "86d03ea7-a43a-48d7-b392-71881dd91481",
+      "roleId": "795d1bc5-591b-4c08-a716-591c9ad75c83",
       "name": "Admin",
       "email": "admin@kickof.com",
       "password": "admin",
@@ -22,6 +23,7 @@
     {"id": "setting:read", "name": "Setting Read"},
     {"id": "setting:update", "name": "Setting Update"},
     {"id": "setting:delete", "name": "Setting Delete"},
+    {"id": "system:setting", "name": "System Setting"},
     {"id": "system:setting:create", "name": "System Setting Create"},
     {"id": "system:setting:read", "name": "System Setting Read"},
     {"id": "system:setting:update", "name": "System Setting Update"},

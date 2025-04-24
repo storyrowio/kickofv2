@@ -24,7 +24,7 @@ func AuthWithSocial(user *models.User, request models.AuthRequest) error {
 
 	if !isExist {
 		roleId := ""
-		role := GetRole(bson.M{"code": models.AdminRole}, nil)
+		role := GetRole(bson.M{"code": models.AdminRole}, nil, false)
 		if role != nil {
 			roleId = role.Id
 		}

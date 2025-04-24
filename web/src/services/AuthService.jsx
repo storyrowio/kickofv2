@@ -6,12 +6,17 @@ const Login = (params) => {
     return Api.Instance.post('/login', params)
         .then(res => {
             AppStorage.SetItem(AUTH_TOKEN, res.data?.data?.token);
-            return res
+            return res.data?.data
         });
 };
 
+const GetProfile = () => {
+    return Api.Instance.get('/profile').then(res => res.data);
+};
+
 const AuthService = {
-    Login
+    Login,
+    GetProfile
 };
 
 export default AuthService;

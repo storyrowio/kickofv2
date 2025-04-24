@@ -7,6 +7,8 @@ import AppNavbar from "layouts/app/components/AppNavbar.jsx";
 import {Outlet} from "react-router";
 import GeneralService from "services/GeneralService.jsx";
 import {useEffect} from "react";
+import AuthService from "services/AuthService.jsx";
+import {ProfileActions} from "store/slices/ProfileSlice.jsx";
 
 export default function AppLayout() {
     const dispatch = useDispatch();
@@ -28,12 +30,18 @@ export default function AppLayout() {
         'opacity-50': !desktop && sidebarOpen,
     });
 
+    const fetchProfile = () => {
+        return AuthService.GetProfile()
+            .then(res => dispatch(ProfileActions.setProfile(res?.data)));
+    };
+
     const fetchSidebarMenus = () => {
         return GeneralService.GetSidebarMenus()
             .then(res => dispatch(ThemeActions.setSidebarMenus(res)));
     };
 
     useEffect(() => {
+        fetchProfile();
         fetchSidebarMenus();
     }, []);
 

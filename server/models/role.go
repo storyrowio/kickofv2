@@ -8,12 +8,13 @@ const (
 )
 
 type Role struct {
-	Id          string   `json:"id"`
-	Name        string   `json:"name"`
-	Code        string   `json:"code"`
-	Permissions []string `json:"permissions"` // permission ids
-	RoleType    string   `json:"roleType"`    // systemAdmin, admin, manager
-	BasicDate   `bson:",inline"`
+	Id            string       `json:"id"`
+	Name          string       `json:"name"`
+	Code          string       `json:"code"`
+	PermissionIds []string     `json:"permissionIds"` // permission ids
+	RoleType      string       `json:"roleType"`      // systemAdmin, admin, manager
+	Permissions   []Permission `json:"permissions" bson:"-"`
+	BasicDate     `bson:",inline"`
 }
 
 type Permission struct {
