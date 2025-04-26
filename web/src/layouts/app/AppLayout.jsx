@@ -1,15 +1,30 @@
 import {SidebarInset, SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.jsx";
 import {AppSidebar} from "@/components/ui/sidebar/app-sidebar.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import AppNavbarProfile from "@/layouts/app/components/AppNavbarProfile.jsx";
 import AppNavbarNotification from "@/layouts/app/components/AppNavbarNotification.jsx";
 import {Outlet} from "react-router";
 import AppNavbar from "@/layouts/app/components/AppNavbar.jsx";
 import {Menubar} from "@/components/ui/menubar.jsx";
+import FrontService from "@/services/FrontService.jsx";
+import {ThemeActions} from "@/store/slices/ThemeSlice.jsx";
+import {useDispatch} from "@/store/index.jsx";
 
 export default function AppLayout() {
+    const dispatch = useDispatch();
     const [isMiniSidebar, setIsMiniSidebar] = useState(false);
+
+    const fetchInitial = async () => {
+        return FrontService.GetUserSidebarMenus()
+            .then(res => {
+                dispatch(ThemeActions.setSidebarMenus(res))
+            });
+    };
+
+    useEffect(() => {
+        fetchInitial();
+    }, []);
 
     return (
         <SidebarProvider className="bg-neutral-400">

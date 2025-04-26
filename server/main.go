@@ -64,14 +64,11 @@ func main() {
 		{
 			front := protected.Group("/front")
 			{
-				front.GET("/menus", controllers.GetFrontSidebarMenus)
+				front.GET("/sidebar-menu", controllers.GetUserFrontSidebarMenus)
 			}
 
 			protected.GET("/profile", controllers.GetProfile)
 			protected.PATCH("/profile", controllers.UpdateProfile)
-
-			protected.GET("/permission", controllers.GetPermissions)
-			protected.POST("/permission", controllers.CreatePermission)
 
 			protected.GET("/role", controllers.GetRoles)
 			protected.POST("/role", controllers.CreateRole)
@@ -92,6 +89,24 @@ func main() {
 			protected.PATCH("/user/:id", controllers.UpdateUser)
 			protected.DELETE("/user/:id", controllers.DeleteUser)
 
+			admin := protected.Group("/admin", config.AdminMiddleware())
+			{
+				adminFront := admin.Group("/front")
+				{
+					adminFront.GET("/sidebar-menu", controllers.GetFrontSidebarMenus)
+					adminFront.POST("/sidebar-menu", controllers.CreateFrontSidebarMenus)
+					adminFront.GET("/sidebar-menu/:id", controllers.GetFrontSidebarMenu)
+					adminFront.DELETE("/sidebar-menu", controllers.DeleteFrontSidebarMenu)
+				}
+
+				admin.GET("/permission", controllers.GetPermissions)
+				admin.POST("/permission", controllers.CreatePermission)
+
+				admin.GET("/role", controllers.GetRoles)
+				admin.POST("/role", controllers.CreateRole)
+				admin.PATCH("/role/:id", controllers.UpdateRole)
+				admin.DELETE("/role/:id", controllers.DeleteRole)
+			}
 		}
 	}
 

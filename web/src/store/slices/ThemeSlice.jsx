@@ -1,25 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    miniSidebar: false,
-    sidebarOpen: true,
-    activeSidebarGroupMenu: []
+    sidebarMenus: [],
 };
 
 export const ThemeSlice = createSlice({
     name: 'theme',
     initialState,
     reducers: {
-        setSidebarOpen: (state, action) => {
-            state.activeSidebarGroupMenu = [];
-            state.sidebarOpen = action.payload;
-        },
-        setActiveSidebarGroupMenu: (state, action) => {
-            if (state.activeSidebarGroupMenu.includes(action.payload)) {
-                state.activeSidebarGroupMenu = state.activeSidebarGroupMenu.filter(e => e !== action.payload);
-            } else {
-                state.activeSidebarGroupMenu = [...state.activeSidebarGroupMenu, action.payload];
-            }
+        setSidebarMenus: (state, action) => {
+            state.sidebarMenus = action.payload;
         },
         reset: () => initialState
     }

@@ -4,11 +4,28 @@ import (
 	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
+	"kickof/lib"
 	"kickof/models"
+	"kickof/services"
 	"net/http"
 	"os"
 	"strings"
 )
+
+func GetToken(request *http.Request) *string {
+	header := request.Header["Authorization"]
+	if header == nil {
+		return nil
+	}
+
+	split := strings.Split(header[0], " ")
+	if len(split) != 2 || strings.ToLower(split[0]) != "bearer" {
+		return nil
+	}
+
+	return &split[1]
+}
 
 func CheckToken(tokenString string) (string, error) {
 	claims := &models.Claims{}
@@ -71,6 +88,77 @@ func CorsMiddleware() gin.HandlerFunc {
 
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
+}
+
+func AdminMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := GetToken(c.Request)
+		if token == nil {
+			c.Abort()
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			_, err := c.Writer.Write([]byte("unauthorized"))
+			if err != nil {
+				return
+			}
+			return
+		}
+
+		_, err := CheckToken(*token)
+		if err != nil {
+			c.Abort()
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			_, err := c.Writer.Write([]byte("token invalid"))
+			if err != nil {
+				return
+			}
+			return
+		}
+
+		email, err := lib.VerifyToken(*token)
+		if err != nil {
+			c.Abort()
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			_, err := c.Writer.Write([]byte("unauthorized"))
+			if err != nil {
+				return
+			}
+			return
+		}
+
+		user := services.GetUser(bson.M{"email": email}, nil)
+		if user == nil {
+			c.Abort()
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			_, err := c.Writer.Write([]byte("unauthorized"))
+			if err != nil {
+				return
+			}
+			return
+		}
+
+		role := services.GetRole(bson.M{"id": user.RoleId}, nil, false)
+		if role == nil {
+			c.Abort()
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			_, err := c.Writer.Write([]byte("unauthorized"))
+			if err != nil {
+				return
+			}
+			return
+		}
+
+		if role.Code != models.SystemAdminRole {
+			c.Abort()
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			_, err := c.Writer.Write([]byte("forbidden"))
+			if err != nil {
+				return
+			}
 			return
 		}
 

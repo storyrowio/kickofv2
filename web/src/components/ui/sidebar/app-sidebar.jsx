@@ -20,6 +20,7 @@ import {
 import {NavMain} from "@/components/ui/sidebar/nav-main.jsx";
 import Logo from "@/assets/images/logos/logo.svg";
 import LogoIcon from "@/assets/images/logos/logo-icon.svg";
+import {useSelector} from "@/store/index.jsx";
 
 const data = {
     user: {
@@ -156,16 +157,17 @@ const data = {
 }
 export function AppSidebar(props) {
     const { miniSidebar } = props;
-
+    const { sidebarMenus } = useSelector(state => state.theme);
+    console.log(sidebarMenus)
     return (
-        <Sidebar collapsible="icon" {...props}>
+        <Sidebar collapsible="icon" className="bg-white" {...props}>
             <SidebarHeader>
-                <div className={miniSidebar ? `py-1` : `py-3 px-4`}>
+                <div className={miniSidebar ? `py-1` : `py-4.5 px-4`}>
                     <img
                         alt="logo"
                         src={miniSidebar ? LogoIcon : Logo}
                         style={{
-                            width: miniSidebar ? 20 : 100,
+                            width: miniSidebar ? 20 : 140,
                             margin: miniSidebar ? 'auto' : 0,
                         }}/>
                 </div>

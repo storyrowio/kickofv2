@@ -47,7 +47,6 @@ function MenubarTrigger({
   className,
   ...props
 }) {
-  console.log(className)
   return (
     <MenubarPrimitive.Trigger
       data-slot="menubar-trigger"
