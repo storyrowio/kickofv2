@@ -3,12 +3,10 @@ import {
     useDispatch as useAppDispatch,
     useSelector as useAppSelector,
 } from 'react-redux';
-import ThemeSlice from "store/slices/ThemeSlice";
-import ProfileSlice from "store/slices/ProfileSlice.jsx";
+import ThemeSlice from "@/store/slices/ThemeSlice";
 
 const store = configureStore({
     reducer: {
-        profile: ProfileSlice.reducer,
         theme: ThemeSlice.reducer
     },
     middleware: getDefaultMiddleware =>

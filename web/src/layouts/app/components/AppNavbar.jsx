@@ -1,32 +1,21 @@
-'use client'
+import {
+    Menubar, MenubarCheckboxItem,
+    MenubarContent,
+    MenubarItem,
+    MenubarMenu, MenubarRadioGroup, MenubarRadioItem,
+    MenubarSeparator,
+    MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger,
+    MenubarTrigger,
+} from "@/components/ui/menubar"
+import Avatar from "@/assets/images/avatar/avatar.png";
+import {Bell, ChevronDown} from "lucide-react";
+import {Button} from "@/components/ui/button.jsx";
 
-import classNames from "classnames";
-import useMediaQuery from "hooks/useMediaQuery";
-import IconButton from "components/ui/buttons/IconButton";
-import {Menu02Icon} from "hugeicons-react";
-import AppNavbarProfile from "layouts/app/components/AppNavbarProfile";
-import AppNavbarNotification from "layouts/app/components/AppNavbarNotification.jsx";
-
-export default function AppNavbar(props) {
-    const { onToggleSidebar } = props;
-    const { desktop } = useMediaQuery();
-
-    const navbarClassnames = classNames({
-        'h-16 min-w-screen px-4 lg:px-10 fixed z-[5] bg-white border-b border-neutral-200 flex items-center': true,
-    });
-
+export default function AppNavbar() {
     return (
-        <div className={navbarClassnames}>
-            {!desktop && (
-                <IconButton onClick={onToggleSidebar}>
-                    <Menu02Icon size={18} className="text-neutral-600"/>
-                </IconButton>
-            )}
-            <div className="flex-1"/>
-            <div className="flex gap-4">
-                <AppNavbarNotification/>
-                <AppNavbarProfile/>
-            </div>
-        </div>
+        <Menubar className="border-0 shadow-none">
+
+
+        </Menubar>
     )
 }
