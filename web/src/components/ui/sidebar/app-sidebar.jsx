@@ -158,7 +158,7 @@ const data = {
 export function AppSidebar(props) {
     const { miniSidebar } = props;
     const { sidebarMenus } = useSelector(state => state.theme);
-    console.log(sidebarMenus)
+
     return (
         <Sidebar collapsible="icon" className="bg-white" {...props}>
             <SidebarHeader>
@@ -174,7 +174,7 @@ export function AppSidebar(props) {
                 {/*<TeamSwitcher teams={data.teams} />*/}
             </SidebarHeader>
             <SidebarContent className={miniSidebar ? 'px-0' : 'px-4'}>
-                <NavMain items={data.navMain} miniSidebar={miniSidebar} />
+                <NavMain items={sidebarMenus} miniSidebar={miniSidebar} />
             </SidebarContent>
             <SidebarFooter>
                 {/*<NavUser user={data.user} />*/}

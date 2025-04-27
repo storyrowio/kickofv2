@@ -13,3 +13,14 @@ export const AppMenuIcons = {
     template: NotepadTextDashedIcon,
     socialAccount: CableIcon
 }
+
+export const SidebarMenusOrder = [
+    'dashboard',
+    'content',
+    'calendar',
+    'contentLibrary',
+    'template',
+    'setting',
+    'systemSetting',
+    'frontSidebarMenu'
+];

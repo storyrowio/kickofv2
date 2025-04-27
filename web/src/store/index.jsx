@@ -4,9 +4,11 @@ import {
     useSelector as useAppSelector,
 } from 'react-redux';
 import ThemeSlice from "@/store/slices/ThemeSlice";
+import ProfileSlice from "@/store/slices/ProfileSlice.jsx";
 
 const store = configureStore({
     reducer: {
+        profile: ProfileSlice.reducer,
         theme: ThemeSlice.reducer
     },
     middleware: getDefaultMiddleware =>
