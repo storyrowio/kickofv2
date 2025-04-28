@@ -11,6 +11,7 @@ import * as React from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import {Checkbox} from "@/components/ui/checkbox.jsx";
 import {Button} from "@/components/ui/button.jsx";
+import {useMemo} from "react";
 
 export default function FrontSidebarMenuForm(props) {
     const { data } = props;

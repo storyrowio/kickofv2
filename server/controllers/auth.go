@@ -84,7 +84,7 @@ func SignUp(c *gin.Context) {
 		TemplatePath: "templates/verification.html",
 	}
 
-	err = lib.SendEmail(mailRequest)
+	err = services.SendMail(mailRequest)
 	if err != nil {
 		log.Println("Error sending email:", err)
 	}

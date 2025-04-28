@@ -131,7 +131,7 @@ func ForgotPassword(email string, url string) (bool, error) {
 		TemplatePath: "templates/forgot-password.html",
 	}
 
-	err = lib.SendEmail(mailRequest)
+	err = SendMail(mailRequest)
 	if err != nil {
 		log.Println("Error sending email:", err)
 	}
