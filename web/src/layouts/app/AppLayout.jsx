@@ -10,12 +10,15 @@ import {Menubar} from "@/components/ui/menubar.jsx";
 import FrontService from "@/services/FrontService.jsx";
 import {ThemeActions} from "@/store/slices/ThemeSlice.jsx";
 import {useDispatch} from "@/store/index.jsx";
+import AuthService from "@/services/AuthService.jsx";
+import {ProfileActions} from "@/store/slices/ProfileSlice.jsx";
 
 export default function AppLayout() {
     const dispatch = useDispatch();
     const [isMiniSidebar, setIsMiniSidebar] = useState(false);
 
     const fetchInitial = async () => {
+        await AuthService.GetProfile().then(res => dispatch(ProfileActions.setProfile(res?.data)))
         return FrontService.GetUserSidebarMenus()
             .then(res => {
                 dispatch(ThemeActions.setSidebarMenus(res))

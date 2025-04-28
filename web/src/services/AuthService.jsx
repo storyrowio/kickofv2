@@ -10,8 +10,14 @@ const Login = (params) => {
         });
 };
 
+const GetProfile = () => {
+    return Api.Instance.get('/profile')
+        .then(res => res?.data);
+};
+
 const AuthService = {
-    Login
+    Login,
+    GetProfile
 };
 
 export default AuthService;

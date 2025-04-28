@@ -21,7 +21,7 @@ export default function FrontSidebarMenuPage() {
             <CardHeader>
                 <CardTitle>All Sidebar Menus</CardTitle>
                 <CardAction>
-                    <Button onClick={() => navigate('/app/front/sidebar-menu/create')}>
+                    <Button color="secondary" onClick={() => navigate('/app/front/sidebar-menu/create')}>
                         Add Data
                     </Button>
                 </CardAction>

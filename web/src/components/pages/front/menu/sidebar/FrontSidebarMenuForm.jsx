@@ -128,7 +128,7 @@ export default function FrontSidebarMenuForm(props) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <Button type="submit">
+                        <Button color="primary" type="submit">
                             Submit
                         </Button>
                     </div>
