@@ -93,7 +93,7 @@ func SignUp(c *gin.Context) {
 		Id:    user.Id,
 		Name:  user.Name,
 		Email: user.Email,
-		//Token: *token,
+		Token: *token,
 	}
 
 	c.JSON(http.StatusOK, models.Response{Data: result})

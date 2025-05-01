@@ -21,6 +21,7 @@ import {NavMain} from "@/components/ui/sidebar/nav-main.jsx";
 import Logo from "@/assets/images/logos/logo.svg";
 import LogoIcon from "@/assets/images/logos/logo-icon.svg";
 import {useSelector} from "@/store/index.jsx";
+import WorkspaceSwitcher from "@/components/ui/sidebar/workspace-switcher.jsx";
 
 const data = {
     user: {
@@ -162,16 +163,7 @@ export function AppSidebar(props) {
     return (
         <Sidebar collapsible="icon" className="bg-white" {...props}>
             <SidebarHeader>
-                <div className={miniSidebar ? `py-1` : `py-4.5 px-4`}>
-                    <img
-                        alt="logo"
-                        src={miniSidebar ? LogoIcon : Logo}
-                        style={{
-                            width: miniSidebar ? 20 : 140,
-                            margin: miniSidebar ? 'auto' : 0,
-                        }}/>
-                </div>
-                {/*<TeamSwitcher teams={data.teams} />*/}
+                <WorkspaceSwitcher teams={data.teams} />
             </SidebarHeader>
             <SidebarContent className={miniSidebar ? 'px-0' : 'px-4'}>
                 <NavMain items={sidebarMenus} miniSidebar={miniSidebar} />

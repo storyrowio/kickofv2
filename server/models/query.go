@@ -98,6 +98,12 @@ func (q Query) GetQueryFind() bson.M {
 		query["title"] = regex
 	}
 
+	if q.UserId != "" {
+		query["userIds"] = bson.M{
+			"$in": []string{q.UserId},
+		}
+	}
+
 	if q.ProjectId != "" {
 		query["projectId"] = q.ProjectId
 	}

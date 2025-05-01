@@ -15,10 +15,22 @@ const CreateSidebarMenus = (params) => {
         .then(res => res?.data);
 };
 
+const UpdateSidebarMenu = (id, params) => {
+    return Api.Instance.patch(`/admin/front/sidebar-menu/${id}`, params)
+        .then(res => res?.data);
+};
+
+const DeleteSidebarMenu = (id) => {
+    return Api.Instance.delete(`/admin/front/sidebar-menu/${id}`)
+        .then(res => res?.data);
+};
+
 const FrontService = {
     GetUserSidebarMenus,
     GetSidebarMenus,
-    CreateSidebarMenus
+    CreateSidebarMenus,
+    UpdateSidebarMenu,
+    DeleteSidebarMenu
 };
 
 export default FrontService;

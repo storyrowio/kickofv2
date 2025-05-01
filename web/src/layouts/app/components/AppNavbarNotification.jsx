@@ -10,10 +10,8 @@ import {
 export default function AppNavbarNotification() {
     return (
         <MenubarMenu>
-            <MenubarTrigger className="p-0 rounded-full">
-                <Button variant="outline" size="icon">
-                    <Bell size={16} className="text-neutral-700"/>
-                </Button>
+            <MenubarTrigger className="border p-2.25 rounded-full cursor-pointer">
+                <Bell size={16} className="text-neutral-700"/>
             </MenubarTrigger>
             <MenubarContent align="end" className="w-72">
                 <MenubarItem>New Window</MenubarItem>

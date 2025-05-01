@@ -80,7 +80,6 @@ export default function FrontSidebarMenuForm(props) {
                         <Label htmlFor="icon">Icon</Label>
                         <Input
                             id="icon"
-                            required
                             name="icon"
                             onChange={formik.handleChange}
                             value={formik.values.icon}
@@ -90,7 +89,6 @@ export default function FrontSidebarMenuForm(props) {
                         <Label htmlFor="path">Path</Label>
                         <Input
                             id="path"
-                            required
                             name="path"
                             onChange={formik.handleChange}
                             value={formik.values.path}

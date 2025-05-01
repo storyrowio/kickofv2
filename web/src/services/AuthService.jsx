@@ -10,6 +10,14 @@ const Login = (params) => {
         });
 };
 
+const Register = (params) => {
+    return Api.Instance.post('/register', params)
+        .then(res => {
+            AppStorage.SetItem(AUTH_TOKEN, res.data?.data?.token);
+            return res
+        });
+};
+
 const GetProfile = () => {
     return Api.Instance.get('/profile')
         .then(res => res?.data);
@@ -17,6 +25,7 @@ const GetProfile = () => {
 
 const AuthService = {
     Login,
+    Register,
     GetProfile
 };
 

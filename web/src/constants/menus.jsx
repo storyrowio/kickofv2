@@ -1,25 +1,18 @@
 import {
-    CableIcon,
-    CalendarCheckIcon,
-    FolderOpenIcon,
-    LayoutDashboardIcon,
-    NotepadTextDashedIcon
+    BriefcaseIcon,
+    LayoutDashboardIcon, MonitorCogIcon,
+    PanelLeftDashedIcon
 } from "lucide-react";
 
 export const AppMenuIcons = {
     dashboard: LayoutDashboardIcon,
-    calendar: CalendarCheckIcon,
-    contentLibrary: FolderOpenIcon,
-    template: NotepadTextDashedIcon,
-    socialAccount: CableIcon
+    workspace: BriefcaseIcon,
+    systemSetting: MonitorCogIcon,
+    frontSidebarMenu: PanelLeftDashedIcon,
 }
 
 export const SidebarMenusOrder = [
     'dashboard',
-    'content',
-    'calendar',
-    'contentLibrary',
-    'template',
     'setting',
     'systemSetting',
     'frontSidebarMenu'

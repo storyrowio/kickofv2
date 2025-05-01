@@ -6,6 +6,8 @@ import LoginPage from "@/pages/auth/LoginPage.jsx";
 import RegisterPage from "@/pages/auth/RegisterPage.jsx";
 import FrontSidebarMenuPage from "@/pages/app/front/FrontSidebarMenuPage.jsx";
 import FrontSidebarMenuCreatePage from "@/pages/app/front/FrontSidebarMenuCreatePage.jsx";
+import BlankLayout from "@/layouts/BlankLayout.jsx";
+import CreateInitialWorkspace from "@/pages/app/workspace/CreateInitialWorkspace.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -14,6 +16,13 @@ const routes = createBrowserRouter([
         children: [
             { index: true, Component: LoginPage },
             { path: '/register', Component: RegisterPage }
+        ]
+    },
+    {
+        path: '/',
+        Component: BlankLayout,
+        children: [
+            { path: '/workspace/initial', Component: CreateInitialWorkspace }
         ]
     },
     {

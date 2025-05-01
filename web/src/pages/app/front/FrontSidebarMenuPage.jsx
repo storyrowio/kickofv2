@@ -7,21 +7,27 @@ import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Table
 import {Button} from "@/components/ui/button.jsx";
 import {useNavigate} from "react-router";
 import {DeleteIcon, EditIcon, TrashIcon} from "lucide-react";
+import DeleteConfirmation from "@/components/shared/dialog/DeleteConfirmation.jsx";
 
 export default function FrontSidebarMenuPage() {
     const navigate = useNavigate();
     const [filter, setFilter] = useState({sort: DefaultSort.name.value});
 
-    const { data: resData } = useSWR(
+    const { data: resData, mutate } = useSWR(
         [filter, '/api/front/sidebar-menus'],
         () => FrontService.GetSidebarMenus(filter));
+
+    const handleDelete = (id) => {
+        return FrontService.DeleteSidebarMenu(id)
+            .then(() => mutate())
+    };
 
     return (
         <Card>
             <CardHeader>
                 <CardTitle>All Sidebar Menus</CardTitle>
                 <CardAction>
-                    <Button color="secondary" onClick={() => navigate('/app/front/sidebar-menu/create')}>
+                    <Button onClick={() => navigate('/app/front/sidebar-menu/create')}>
                         Add Data
                     </Button>
                 </CardAction>
@@ -45,20 +51,24 @@ export default function FrontSidebarMenuPage() {
                             <TableRow key={i}>
                                 <TableCell className="font-medium">{e.id}</TableCell>
                                 <TableCell>{e.title}</TableCell>
-                                <TableCell>{e.permissions?.join(', ')}</TableCell>
+                                <TableCell className="max-w-96 !whitespace-normal">{e.permissions?.join(', ')}</TableCell>
                                 <TableCell className="flex justify-end gap-2">
                                     <Button size="icon" variant="tonal" color="secondary">
                                         <EditIcon/>
                                     </Button>
-                                    <Button size="icon" variant="tonal" color="destructive">
-                                        <TrashIcon/>
-                                    </Button>
+                                    <DeleteConfirmation
+                                        triggerButton={<Button size="icon" variant="tonal" color="destructive">
+                                            <TrashIcon/>
+                                        </Button>}
+                                        onSubmit={() => handleDelete(e.id)}/>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </CardContent>
+
+            <DeleteConfirmation/>
         </Card>
     )
 }

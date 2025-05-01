@@ -37,7 +37,7 @@ func GetStates(filters bson.M, opt *options.FindOptions, includeDetail bool) []m
 					}
 				}
 				if data.WorkspaceId != "" {
-					workspace := GetWorkspace(bson.M{"id": data.WorkspaceId}, nil)
+					workspace := GetWorkspace(bson.M{"id": data.WorkspaceId}, nil, false)
 					if workspace != nil {
 						data.Workspace = *workspace
 					}
