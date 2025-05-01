@@ -19,14 +19,12 @@ func SendEmail(params models.SendMailRequest) error {
 	result, _ := ParseTemplate(params.TemplatePath, params.Data)
 
 	m := gomail.NewMessage()
-	m.SetHeader("From", from)
+	m.SetAddressHeader("From", from, "Kickof")
 	m.SetHeader("To", params.To)
 	m.SetHeader("Subject", params.Subject)
 	m.SetBody("text/html", result)
 
-	m.Embed("templates/assets/logo.svg", gomail.SetHeader(map[string][]string{
-		"Content-ID": {"<logo>"}, // This ID must match the "cid:logo" in the HTML
-	}))
+	m.Embed("templates/assets/logo.png")
 
 	port, _ := strconv.ParseInt(params.MailSetting.MailPort, 10, 64)
 
@@ -51,14 +49,3 @@ func ParseTemplate(templateFileName string, data interface{}) (string, error) {
 	}
 	return buf.String(), nil
 }
-
-//func SendEmailVerification(template string, to string, data interface{}) error {
-//	t := "templates/" + template + ".html"
-//	subject := "Please Confirm Your Email"
-//	err := SendEmail(to, subject, data, t)
-//	if err != nil {
-//		return err
-//	}
-//
-//	return nil
-//}
