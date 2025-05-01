@@ -11,8 +11,8 @@ type Role struct {
 	Id            string       `json:"id"`
 	Name          string       `json:"name"`
 	Code          string       `json:"code"`
-	PermissionIds []string     `json:"permissionIds"` // permission ids
-	RoleType      string       `json:"roleType"`      // systemAdmin, admin, manager
+	PermissionIds []string     `json:"permissionIds" bson:"permissionIds"` // permission ids
+	RoleType      string       `json:"roleType" bson:"roleType"`           // systemAdmin, admin, manager
 	Permissions   []Permission `json:"permissions" bson:"-"`
 	BasicDate     `bson:",inline"`
 }

@@ -1,7 +1,7 @@
 import {
     BriefcaseIcon,
     LayoutDashboardIcon, MonitorCogIcon,
-    PanelLeftDashedIcon
+    PanelLeftDashedIcon, SettingsIcon, WaypointsIcon
 } from "lucide-react";
 
 export const AppMenuIcons = {
@@ -9,6 +9,8 @@ export const AppMenuIcons = {
     workspace: BriefcaseIcon,
     systemSetting: MonitorCogIcon,
     frontSidebarMenu: PanelLeftDashedIcon,
+    setting: SettingsIcon,
+    role: WaypointsIcon,
 }
 
 export const SidebarMenusOrder = [

@@ -8,6 +8,11 @@ import FrontSidebarMenuPage from "@/pages/app/front/FrontSidebarMenuPage.jsx";
 import FrontSidebarMenuCreatePage from "@/pages/app/front/FrontSidebarMenuCreatePage.jsx";
 import BlankLayout from "@/layouts/BlankLayout.jsx";
 import CreateInitialWorkspace from "@/pages/app/workspace/CreateInitialWorkspace.jsx";
+import {FRONT_SIDEBAR_MENU_PATH, ROLE_PATH} from "@/constants/paths.jsx";
+import FrontSidebarMenuUpdatePage from "@/pages/app/front/FrontSidebarMenuUpdatePage.jsx";
+import RolePage from "@/pages/app/system/role/RolePage.jsx";
+import RoleCreatePage from "@/pages/app/system/role/RoleCreatePage.jsx";
+import RoleUpdatePage from "@/pages/app/system/role/RoleUpdatePage.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -30,8 +35,12 @@ const routes = createBrowserRouter([
         Component: AppLayout,
         children: [
             { index: true, Component: DashboardPage },
-            { path: '/app/front/sidebar-menu', Component: FrontSidebarMenuPage },
-            { path: '/app/front/sidebar-menu/create', Component: FrontSidebarMenuCreatePage }
+            { path: FRONT_SIDEBAR_MENU_PATH, Component: FrontSidebarMenuPage },
+            { path: `${FRONT_SIDEBAR_MENU_PATH}/create`, Component: FrontSidebarMenuCreatePage },
+            { path: `${FRONT_SIDEBAR_MENU_PATH}/update/:id`, Component: FrontSidebarMenuUpdatePage },
+            { path: ROLE_PATH, Component: RolePage },
+            { path: `${ROLE_PATH}/create`, Component: RoleCreatePage },
+            { path: `${ROLE_PATH}/update/:id`, Component: RoleUpdatePage },
         ]
     }
 ]);

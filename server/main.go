@@ -95,6 +95,7 @@ func main() {
 					adminFront.GET("/sidebar-menu", controllers.GetFrontSidebarMenus)
 					adminFront.POST("/sidebar-menu", controllers.CreateFrontSidebarMenus)
 					adminFront.GET("/sidebar-menu/:id", controllers.GetFrontSidebarMenu)
+					adminFront.PATCH("/sidebar-menu/:id", controllers.UpdateFrontSidebarMenu)
 					adminFront.DELETE("/sidebar-menu/:id", controllers.DeleteFrontSidebarMenu)
 				}
 

@@ -1,17 +1,16 @@
 import {Label} from "@/components/ui/label.jsx";
 import {Input} from "@/components/ui/input.jsx";
 import {useFormik} from "formik";
-import AuthService from "@/services/AuthService.jsx";
 import {useNavigate} from "react-router";
 import useSWR from "swr";
 import FrontService from "@/services/FrontService.jsx";
 import RolePermissionService from "@/services/RolePermissionService.jsx";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.jsx";
 import * as React from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import {Checkbox} from "@/components/ui/checkbox.jsx";
 import {Button} from "@/components/ui/button.jsx";
-import {useMemo} from "react";
+import {useEffect, useRef} from "react";
+import {FRONT_SIDEBAR_MENU_PATH} from "@/constants/paths.jsx";
 
 export default function FrontSidebarMenuForm(props) {
     const { data } = props;
@@ -32,6 +31,14 @@ export default function FrontSidebarMenuForm(props) {
         onSubmit: values => handleSubmit(values)
     });
 
+    const mounted = useRef(false);
+    useEffect(() => {
+        if (data?.id && !mounted.current) {
+            formik.setValues(data);
+            mounted.current = true;
+        }
+    }, [data, data?.id, formik]);
+
     const handleChangePermission = (id) => {
         if (formik.values.permissions.includes(id)) {
             formik.setFieldValue('permissions', formik.values.permissions.filter(e => e !== id));
@@ -40,11 +47,18 @@ export default function FrontSidebarMenuForm(props) {
         }
     };
 
-    const handleSubmit = (values) => {
-        console.log(values)
+    const submit = (params) => {
+        if (data?.id) {
+            return FrontService.UpdateSidebarMenu(data?.id, params);
+        }
+
         return FrontService.CreateSidebarMenus({
-            menus: [values]
-        }).then(() => navigate('/app/front/sidebar-menu'))
+            menus: [params]
+        });
+    };
+
+    const handleSubmit = (values) => {
+        return submit(values).then(() => navigate(FRONT_SIDEBAR_MENU_PATH))
     };
 
     return (
@@ -114,7 +128,7 @@ export default function FrontSidebarMenuForm(props) {
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {resPermissions?.map((e, i) => (
                                 <div key={i} className="py-3 items-top flex space-x-2">
-                                    <Checkbox id={e.id} onCheckedChange={() => handleChangePermission(e.id)}/>
+                                    <Checkbox id={e.id} checked={formik.values.permissions.includes(e.id)} onCheckedChange={() => handleChangePermission(e.id)}/>
                                     <div className="grid gap-1.5 leading-none">
                                         <label
                                             htmlFor={e.id}

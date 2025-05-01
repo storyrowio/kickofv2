@@ -14,3 +14,10 @@ export const SettingTypes = {
     storage: { name: 'Storage', className: '!bg-amber-100 text-amber-500 shadow-amber/10 [a&]:hover:!bg-amber-300' },
     mail: { name: 'Mail', className: '!bg-rose-100 text-rose-500 shadow-rose/10 [a&]:hover:!bg-rose-300' },
 };
+
+export const RoleTypes = {
+    systemAdmin: { name: 'System Admin', value: 'systemadmin' },
+    admin: { name: 'Admin', value: 'admin' },
+    manager: { name: 'Manager', value: 'manager' },
+    member: { name: 'Member', value: 'member' },
+};

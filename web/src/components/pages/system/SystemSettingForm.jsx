@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router";
 import {useFormik} from "formik";
-import {Card, CardContent} from "@/components/ui/card.jsx";
+import FrontService from "@/services/FrontService.jsx";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import {Label} from "@/components/ui/label.jsx";
 import {Input} from "@/components/ui/input.jsx";
 import {Button} from "@/components/ui/button.jsx";
@@ -19,8 +20,10 @@ const SettingForm = (props) => {
     const { formik } = props;
 
     const handleInputChange = (index, field, value) => {
+        console.log(index, field, value)
         const updatedSetting = [...formik.values.setting]
         updatedSetting[index][field] = value
+        console.log(updatedSetting)
         formik.setFieldValue('setting', [...updatedSetting]);
     }
 

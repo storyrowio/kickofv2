@@ -53,13 +53,34 @@ func CreateFrontSidebarMenus(c *gin.Context) {
 func GetFrontSidebarMenu(c *gin.Context) {
 	id := c.Param("id")
 
-	menu := services.GetFrontSidebarMenu(bson.M{"id": id}, nil)
-	if menu == nil {
-		c.JSON(http.StatusBadRequest, models.Response{Data: "Failed Delete Data"})
+	menus := services.GetFrontSidebarMenu(bson.M{"id": id}, nil)
+
+	c.JSON(http.StatusOK, models.Response{Data: menus})
+}
+
+func UpdateFrontSidebarMenu(c *gin.Context) {
+	id := c.Param("id")
+
+	data := services.GetFrontSidebarMenu(bson.M{"id": id}, nil)
+	if data == nil {
+		c.JSON(http.StatusNotFound, models.Result{Data: "Data Not Found"})
 		return
 	}
 
-	c.JSON(http.StatusOK, models.Response{Data: menu})
+	var request map[string]interface{}
+	err := c.ShouldBindJSON(&request)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, models.Response{Data: err.Error()})
+		return
+	}
+
+	_, err = services.UpdateFrontSidebarMenu(id, request)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, models.Response{Data: err.Error()})
+		return
+	}
+
+	c.JSON(200, models.Response{Data: request})
 }
 
 func DeleteFrontSidebarMenu(c *gin.Context) {

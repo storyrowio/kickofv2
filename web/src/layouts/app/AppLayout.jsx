@@ -21,32 +21,40 @@ export default function AppLayout() {
     const { workspaces, activeWorkspace, needCreateWorkspace } = useSelector(state => state.app);
     const [loading, setLoading] = useState([]);
     const [isMiniSidebar, setIsMiniSidebar] = useState(false);
-    console.log(needCreateWorkspace)
+
+    const fetchWorkspace = async () => {
+        return WorkspaceService.GetWorkspaces({user: id})
+            .then(res => {
+                if (res?.data?.length === 0) {
+                    navigate('/workspace/initial')
+                }
+                setLoading([...loading, 'workspace']);
+            });
+    };
+
+    const fetchSidebarMenu = async () => {
+        return FrontService.GetUserSidebarMenus()
+            .then(res => {
+                dispatch(ThemeActions.setSidebarMenus(res));
+                setLoading([...loading, 'sidebarMenus']);
+            });
+    };
+
     const fetchInitial = async () => {
         await AuthService.GetProfile()
-            .then(res => {
+            .then(async res => {
                 dispatch(ProfileActions.setProfile(res?.data));
                 setLoading([...loading, 'profile']);
+                if (res?.data?.role?.roleType !== "systemadmin") {
+                    // console.log(role.code)
+                    await fetchWorkspace();
+                }
+                await fetchSidebarMenu();
             })
             .catch((err) => {
                 if (err.status === 401) {
                     navigate('/')
                 }
-            });
-        await WorkspaceService.GetWorkspaces({user: id})
-            .then(res => {
-                if (role?.code !== "systemadmin") {
-                    dispatch(AppActions.setWorkspaces(res.data));
-                    if (res?.data?.length === 0) {
-                        navigate('/workspace/initial')
-                    }
-                }
-                setLoading([...loading, 'workspace']);
-            });
-        return FrontService.GetUserSidebarMenus()
-            .then(res => {
-                dispatch(ThemeActions.setSidebarMenus(res));
-                setLoading([...loading, 'sidebarMenus']);
             });
     };
 
@@ -57,9 +65,9 @@ export default function AppLayout() {
                 mounted.current = true;
             })
         }
-    }, [id]);
+    }, [id, role]);
 
-    if (loading.length < 3) {
+    if (loading.length < 2) {
         return (
             <div className="w-screen h-screen flex justify-center items-center">
                 <img

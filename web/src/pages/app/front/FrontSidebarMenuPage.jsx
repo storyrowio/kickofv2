@@ -8,6 +8,7 @@ import {Button} from "@/components/ui/button.jsx";
 import {useNavigate} from "react-router";
 import {DeleteIcon, EditIcon, TrashIcon} from "lucide-react";
 import DeleteConfirmation from "@/components/shared/dialog/DeleteConfirmation.jsx";
+import {FRONT_SIDEBAR_MENU_PATH} from "@/constants/paths.jsx";
 
 export default function FrontSidebarMenuPage() {
     const navigate = useNavigate();
@@ -51,9 +52,10 @@ export default function FrontSidebarMenuPage() {
                             <TableRow key={i}>
                                 <TableCell className="font-medium">{e.id}</TableCell>
                                 <TableCell>{e.title}</TableCell>
-                                <TableCell className="max-w-96 !whitespace-normal">{e.permissions?.join(', ')}</TableCell>
+                                <TableCell>{e.permissions?.length ?? 'No'} Permissions</TableCell>
                                 <TableCell className="flex justify-end gap-2">
-                                    <Button size="icon" variant="tonal" color="secondary">
+                                    <Button size="icon" variant="tonal" color="secondary"
+                                            onClick={() => navigate(`${FRONT_SIDEBAR_MENU_PATH}/update/${e.id}`)}>
                                         <EditIcon/>
                                     </Button>
                                     <DeleteConfirmation
