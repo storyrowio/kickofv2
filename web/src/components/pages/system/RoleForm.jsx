@@ -59,7 +59,6 @@ export default function RoleForm(props) {
                 formik.handleReset();
             })
     };
-    console.log(formik.values)
 
     return (
         <>

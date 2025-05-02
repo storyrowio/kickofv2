@@ -6,7 +6,7 @@ const GetWorkspaces = (query) => {
         .then(res => res.data?.data);
 };
 
-const CreateWorkspaces = (params) => {
+const CreateWorkspace = (params) => {
     return Api.Instance.post(workspaceEndpoint, params)
         .then(res => res?.data);
 };
@@ -28,7 +28,7 @@ const DeleteWorkspace = (id) => {
 
 const WorkspaceService = {
     GetWorkspaces,
-    CreateWorkspaces,
+    CreateWorkspace,
     GetWorkspace,
     UpdateWorkspace,
     DeleteWorkspace

@@ -35,7 +35,7 @@ const buttonVariants = cva(
       {
         variant: "ghost",
         color: "default",
-        className: "text-accent-foreground"
+        className: "bg-transparent text-accent-foreground shadow-0"
       },
       {
         variant: "tonal",
