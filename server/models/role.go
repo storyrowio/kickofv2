@@ -21,6 +21,7 @@ type Permission struct {
 	Id          string `json:"id"` // user:create, user:read
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	BasicDate   `bson:",inline"`
 }
 
 type UserProjectRole struct {

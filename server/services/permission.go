@@ -65,3 +65,35 @@ func CreateManyPermission(params []models.Permission) error {
 
 	return nil
 }
+
+func CreatePermission(params models.Permission) (bool, error) {
+	_, err := database.InsertOne(PermissionCollection, params)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+func UpdatePermission(id string, request interface{}) (*mongo.UpdateResult, error) {
+	filters := bson.M{"id": id}
+
+	res, err := database.UpdateOne(PermissionCollection, filters, request)
+
+	if res == nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+func DeleteManyPermissions(ids []string) error {
+	filter := bson.M{"id": bson.M{"$in": ids}}
+
+	res, err := database.DeleteMany(PermissionCollection, filter)
+	if res == nil {
+		return err
+	}
+
+	return nil
+}

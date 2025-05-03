@@ -21,3 +21,10 @@ export const RoleTypes = {
     manager: { name: 'Manager', value: 'manager' },
     member: { name: 'Member', value: 'member' },
 };
+
+export const Feature = {
+    setting: { name: 'Setting', value: 'setting' },
+    systemSetting: { name: 'System Setting', value: 'system:setting' },
+    role: { name: 'Role', value: 'role' },
+    permission: { name: 'Permission', value: 'permission' },
+};

@@ -101,6 +101,8 @@ func main() {
 
 				admin.GET("/permission", controllers.GetPermissions)
 				admin.POST("/permission", controllers.CreatePermission)
+				admin.PATCH("/permission", controllers.UpdatePermission)
+				admin.DELETE("/permission/:ids", controllers.DeletePermission)
 
 				admin.GET("/role", controllers.GetRoles)
 				admin.POST("/role", controllers.CreateRole)

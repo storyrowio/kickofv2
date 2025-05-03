@@ -1,6 +1,7 @@
 import Api from "@/lib/api.jsx";
 
 const rolePath = "/role";
+const permissionPath = "/permission";
 
 const GetRoles = (query) => {
     return Api.Instance.get('/admin/role', {params: query})
@@ -28,8 +29,28 @@ const DeleteRole = (id) => {
 };
 
 const GetPermissions = (query) => {
-    return Api.Instance.get('/admin/permission', {params: query})
+    return Api.Instance.get(`/admin${permissionPath}`, {params: query})
         .then(res => res?.data?.data);
+};
+
+const CreatePermission = (params) => {
+    return Api.Instance.post(`/admin${permissionPath}`, params)
+        .then(res => res?.data);
+};
+
+const GetPermission = (id) => {
+    return Api.Instance.get(`${permissionPath}/${id}`)
+        .then(res => res?.data?.data);
+};
+
+const UpdatePermission = (params) => {
+    return Api.Instance.patch(`/admin${permissionPath}`, params)
+        .then(res => res?.data);
+};
+
+const DeletePermission = (ids) => {
+    return Api.Instance.delete(`/admin${permissionPath}/${ids}`)
+        .then(res => res?.data);
 };
 
 const RolePermissionService = {
@@ -38,7 +59,11 @@ const RolePermissionService = {
     GetRole,
     UpdateRole,
     DeleteRole,
-    GetPermissions
+    GetPermissions,
+    CreatePermission,
+    GetPermission,
+    UpdatePermission,
+    DeletePermission
 };
 
 export default RolePermissionService;

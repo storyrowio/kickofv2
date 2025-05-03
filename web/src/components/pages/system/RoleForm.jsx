@@ -13,6 +13,7 @@ import * as React from "react";
 import PageTitle from "@/components/shared/PageTitle.jsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.jsx";
 import {RoleTypes} from "@/constants/constants.jsx";
+import JsonEditor from "@/components/ui/form/json-editor.jsx";
 
 export default function RoleForm(props) {
     const {data} = props;
@@ -83,6 +84,12 @@ export default function RoleForm(props) {
                                 onChange={formik.handleChange}
                                 value={formik.values.name}
                             />
+                        </div>
+                        <div className="grid gap-1">
+                            <Label htmlFor="name">Editor</Label>
+                            <JsonEditor
+                                height={400}
+                                language="json"/>
                         </div>
                         <div className="grid gap-1">
                             <Label htmlFor="code">Code</Label>
